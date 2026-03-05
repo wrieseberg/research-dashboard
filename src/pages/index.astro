@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const BASE = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 
 <Layout title="Learning Without Overwhelm">
@@ -13,43 +14,43 @@ import Layout from '../layouts/Layout.astro';
                 <!-- We use HTMX to fetch the partials from Astro endpoints. 
                      Alpine.js handles the active class state. -->
                 <button class="nav-btn" 
-                    hx-get="/partials/overview" 
+                    hx-get={BASE + "partials/overview"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'overview'}" 
                     @click="activeTab = 'overview'">Overview</button>
                     
                 <button class="nav-btn" 
-                    hx-get="/partials/readings" 
+                    hx-get={BASE + "partials/readings"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'readings'}" 
                     @click="activeTab = 'readings'">Reading Library</button>
                     
                 <button class="nav-btn" 
-                    hx-get="/partials/weekly" 
+                    hx-get={BASE + "partials/weekly"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'weekly'}" 
                     @click="activeTab = 'weekly'">Weekly Plan</button>
                     
                 <button class="nav-btn" 
-                    hx-get="/partials/prompts" 
+                    hx-get={BASE + "partials/prompts"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'prompts'}" 
                     @click="activeTab = 'prompts'">Prompt Log</button>
                     
                 <button class="nav-btn" 
-                    hx-get="/partials/experiments" 
+                    hx-get={BASE + "partials/experiments"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'experiments'}" 
                     @click="activeTab = 'experiments'">Experiment Log</button>
                     
                 <button class="nav-btn" 
-                    hx-get="/partials/links" 
+                    hx-get={BASE + "partials/links"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'links'}" 
                     @click="activeTab = 'links'">Links</button>
                     
                 <button class="nav-btn" 
-                    hx-get="/partials/settings" 
+                    hx-get={BASE + "partials/settings"} 
                     hx-target="#content-area" 
                     :class="{'active': activeTab === 'settings'}" 
                     @click="activeTab = 'settings'">Utilities</button>
@@ -69,7 +70,7 @@ import Layout from '../layouts/Layout.astro';
 
             <!-- Sections Container -->
             <!-- We trigger a load right away to fetch the initial tab -->
-            <div id="content-area" hx-get="/partials/overview" hx-trigger="load">
+            <div id="content-area" hx-get={BASE + "partials/overview"} hx-trigger="load">
                 <div class="p-4">Loading application...</div>
             </div>
         </main>
