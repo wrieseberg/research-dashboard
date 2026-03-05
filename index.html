@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Without Overwhelm</title>
+    <!-- Google Fonts for elegant serif and clean sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="theme-midnight-study-garden">
+    <div id="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Command Center</h2>
+            </div>
+            <nav id="main-nav">
+                <button class="nav-btn active" data-section="overview">Overview</button>
+                <button class="nav-btn" data-section="readings">Reading Library</button>
+                <button class="nav-btn" data-section="weekly">Weekly Plan</button>
+                <button class="nav-btn" data-section="prompts">Prompt Log</button>
+                <button class="nav-btn" data-section="experiments">Experiment Log</button>
+                <button class="nav-btn" data-section="links">Links</button>
+                <button class="nav-btn" data-section="settings">Utilities</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Sticky Header -->
+            <header class="sticky-header">
+                <div class="header-titles">
+                    <h1>Learning Without Overwhelm</h1>
+                    <p class="tagline">Where learning feels manageable.</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat"><span id="stat-readings">0</span> Readings</div>
+                    <div class="stat"><span id="stat-prompts">0</span> Prompts</div>
+                    <div class="stat"><span id="stat-experiments">0</span> Exper...</div>
+                </div>
+            </header>
+
+            <!-- Sections Container -->
+            <div id="content-area">
+
+                <!-- 1. Overview Section -->
+                <section id="overview" data-section-panel="overview" class="view-section active">
+                    <div class="section-header">
+                        <h2>Project Overview</h2>
+                    </div>
+
+                    <div class="card">
+                        <h3>Focus Statement</h3>
+                        <textarea id="overview-focus" class="auto-save" data-field="focus" rows="3"></textarea>
+                    </div>
+
+                    <div class="card">
+                        <h3>Research Question</h3>
+                        <textarea id="overview-question" class="auto-save" data-field="researchQuestion"
+                            rows="2"></textarea>
+                    </div>
+
+                    <div class="grid-2-col">
+                        <div class="card">
+                            <h3>Project Goals</h3>
+                            <ul id="goals-list" class="editable-list"></ul>
+                            <div class="add-item-form mt-sm">
+                                <input type="text" id="new-goal-input" placeholder="Add a new goal...">
+                                <button id="btn-add-goal" class="btn-secondary">Add</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Key Design Principles</h3>
+                            <div id="principles-list" class="tag-container"></div>
+                            <div class="add-item-form mt-sm">
+                                <input type="text" id="new-principle-input" placeholder="Add principle...">
+                                <button id="btn-add-principle" class="btn-secondary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card highlight-card">
+                        <h3>Today's Focus</h3>
+                        <p class="text-sm text-subtle">What I'm doing next.</p>
+                        <textarea id="overview-today" class="auto-save" data-field="today" rows="4"></textarea>
+                    </div>
+                </section>
+
+                <!-- 2. Reading Library Section -->
+                <section id="readings" data-section-panel="readings" class="view-section hidden">
+                    <div class="section-header flex-between">
+                        <h2>Reading Library</h2>
+                        <button class="btn-primary" id="btn-new-reading">+ Add Reading</button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input type="text" id="search-readings" class="search-input"
+                            placeholder="Search title, author, tags...">
+                        <select id="filter-readings-status" class="filter-select">
+                            <option value="All">All Status</option>
+                            <option value="Not started">Not started</option>
+                            <option value="In progress">In progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <select id="sort-readings" class="filter-select">
+                            <option value="newest">Newest First</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="status">Status</option>
+                        </select>
+                    </div>
+
+                    <div id="readings-container" class="items-grid empty-state-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- 3. Weekly Plan Section -->
+                <section id="weekly" data-section-panel="weekly" class="view-section hidden">
+                    <div class="section-header">
+                        <h2>Weekly Plan</h2>
+                        <p class="text-subtle">Milestones from Week 5 to Week 11</p>
+                    </div>
+                    <div id="weekly-container" class="weekly-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- 4. Prompt Log Section -->
+                <section id="prompts" data-section-panel="prompts" class="view-section hidden">
+                    <div class="section-header flex-between">
+                        <h2>Prompt Log</h2>
+                        <button class="btn-primary" id="btn-new-prompt">+ Add Prompt</button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input type="text" id="search-prompts" class="search-input" placeholder="Search prompts...">
+                        <!-- Optional tag filter can go here -->
+                    </div>
+
+                    <div id="prompts-container" class="items-list empty-state-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- 5. Experiment Log Section -->
+                <section id="experiments" data-section-panel="experiments" class="view-section hidden">
+                    <div class="section-header flex-between">
+                        <h2>Experiment Log</h2>
+                        <button class="btn-primary" id="btn-new-experiment">+ Add Experiment</button>
+                    </div>
+
+                    <div class="toolbar">
+                        <input type="text" id="search-experiments" class="search-input"
+                            placeholder="Search experiments...">
+                        <select id="filter-experiments-status" class="filter-select">
+                            <option value="All">All Status</option>
+                            <option value="Planned">Planned</option>
+                            <option value="Running">Running</option>
+                            <option value="Done">Done</option>
+                        </select>
+                    </div>
+
+                    <div id="experiments-container" class="items-grid empty-state-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- 6. Links Section -->
+                <section id="links" data-section-panel="links" class="view-section hidden">
+                    <div class="section-header flex-between">
+                        <h2>Links & Resources</h2>
+                        <button class="btn-primary" id="btn-new-link">+ Add Link</button>
+                    </div>
+                    <div id="links-container" class="links-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+
+                <!-- 7. Utilities Section -->
+                <section id="settings" data-section-panel="settings" class="view-section hidden">
+                    <div class="section-header">
+                        <h2>Utilities</h2>
+                    </div>
+
+                    <div class="card">
+                        <h3>Data Management</h3>
+                        <p class="text-subtle">Back up or restore your dashboard data.</p>
+
+                        <div class="settings-actions mt-md">
+                            <button id="btn-export" class="btn-secondary">Export Data (JSON)</button>
+
+                            <div class="import-wrapper pt-sm mt-sm">
+                                <label for="import-file" class="btn-secondary" style="cursor: pointer;">Import Dashboard
+                                    JSON backup</label>
+                                <input type="file" id="import-file" accept=".json" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="danger-zone mt-lg pt-md" style="border-top: 1px solid var(--border-color);">
+                            <h4 class="text-danger">Danger Zone</h4>
+                            <p class="text-subtle">This action cannot be undone. All local data will be permanently
+                                deleted.</p>
+                            <button id="btn-clear-data" class="btn-danger mt-sm">Clear All Data</button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Modal: Reading -->
+    <div id="modal-reading" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-reading-title">Add Reading</h2>
+            <form id="form-reading">
+                <input type="hidden" id="reading-id">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" id="reading-title" required>
+                </div>
+                <div class="form-group">
+                    <label>Author / Source</label>
+                    <input type="text" id="reading-author">
+                </div>
+                <div class="form-group">
+                    <label>Link (URL)</label>
+                    <input type="url" id="reading-link">
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="reading-tags">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="reading-status">
+                        <option value="Not started">Not started</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea id="reading-notes" rows="4"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Reading</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Prompt -->
+    <div id="modal-prompt" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-prompt-title">Add Prompt</h2>
+            <form id="form-prompt">
+                <input type="hidden" id="prompt-id">
+                <div class="form-group">
+                    <label>Model Used</label>
+                    <select id="prompt-model" required>
+                        <option value="ChatGPT">ChatGPT</option>
+                        <option value="Claude">Claude</option>
+                        <option value="Gemini">Gemini</option>
+                        <option value="AntiGravity">AntiGravity</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="prompt-tags">
+                </div>
+                <div class="form-group">
+                    <label>Prompt Text *</label>
+                    <textarea id="prompt-text" rows="4" class="font-mono" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Output Summary</label>
+                    <textarea id="prompt-summary" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>What I changed next</label>
+                    <input type="text" id="prompt-next">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Prompt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Experiment -->
+    <div id="modal-experiment" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-experiment-title">Add Experiment</h2>
+            <form id="form-experiment">
+                <input type="hidden" id="experiment-id">
+                <div class="form-group">
+                    <label>What I tried *</label>
+                    <textarea id="experiment-tried" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Notes or Screenshot Link</label>
+                    <textarea id="experiment-notes" rows="2"
+                        placeholder="Paste image URL to preview, or write notes"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Outcome</label>
+                    <textarea id="experiment-outcome" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Next Step</label>
+                    <input type="text" id="experiment-next">
+                </div>
+                <div class="form-group">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="experiment-tags">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="experiment-status">
+                        <option value="Planned">Planned</option>
+                        <option value="Running">Running</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Experiment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Link -->
+    <div id="modal-link" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 id="modal-link-title">Add Link</h2>
+            <form id="form-link">
+                <input type="hidden" id="link-id">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" id="link-title" required>
+                </div>
+                <div class="form-group">
+                    <label>URL *</label>
+                    <input type="url" id="link-url" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Link</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
