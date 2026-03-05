@@ -4,372 +4,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Without Overwhelm</title>
-    <!-- Google Fonts for elegant serif and clean sans-serif -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Dashboard</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Personal minimal link dashboard.">
+    <script>
+        (function () {
+            var theme = localStorage.getItem('dashboard_theme') || 'system';
+            if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 </head>
 
-<body class="theme-midnight-study-garden">
-    <div id="app-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>Command Center</h2>
+<body>
+    <div class="glow-bg"></div>
+    <div id="glitter-container"></div>
+    <div class="content-wrapper">
+        <header class="header">
+            <div class="header-left">
+                <h1 id="greeting">Good morning.</h1>
+                <p id="time">00:00 AM</p>
             </div>
-            <nav id="main-nav">
-                <button class="nav-btn active" data-section="overview">Overview</button>
-                <button class="nav-btn" data-section="readings">Reading Library</button>
-                <button class="nav-btn" data-section="weekly">Weekly Plan</button>
-                <button class="nav-btn" data-section="prompts">Prompt Log</button>
-                <button class="nav-btn" data-section="experiments">Experiment Log</button>
-                <button class="nav-btn" data-section="links">Links</button>
-                <button class="nav-btn" data-section="settings">Utilities</button>
-            </nav>
-        </aside>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Sticky Header -->
-            <header class="sticky-header">
-                <div class="header-titles">
-                    <h1>Learning Without Overwhelm</h1>
-                    <p class="tagline">Where learning feels manageable.</p>
-                </div>
-                <div class="header-stats">
-                    <div class="stat"><span id="stat-readings">0</span> Readings</div>
-                    <div class="stat"><span id="stat-prompts">0</span> Prompts</div>
-                    <div class="stat"><span id="stat-experiments">0</span> Exper...</div>
-                </div>
-            </header>
-
-            <!-- Sections Container -->
-            <div id="content-area">
-
-                <!-- 1. Overview Section -->
-                <section id="overview" data-section-panel="overview" class="view-section active">
-                    <div class="section-header">
-                        <h2>Project Overview</h2>
-                    </div>
-
-                    <div class="card">
-                        <h3>Focus Statement</h3>
-                        <textarea id="overview-focus" class="auto-save" data-field="focus" rows="3"></textarea>
-                    </div>
-
-                    <div class="card">
-                        <h3>Research Question</h3>
-                        <textarea id="overview-question" class="auto-save" data-field="researchQuestion"
-                            rows="2"></textarea>
-                    </div>
-
-                    <div class="grid-2-col">
-                        <div class="card">
-                            <h3>Project Goals</h3>
-                            <ul id="goals-list" class="editable-list"></ul>
-                            <div class="add-item-form mt-sm">
-                                <input type="text" id="new-goal-input" placeholder="Add a new goal...">
-                                <button id="btn-add-goal" class="btn-secondary">Add</button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Key Design Principles</h3>
-                            <div id="principles-list" class="tag-container"></div>
-                            <div class="add-item-form mt-sm">
-                                <input type="text" id="new-principle-input" placeholder="Add principle...">
-                                <button id="btn-add-principle" class="btn-secondary">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card highlight-card">
-                        <h3>Today's Focus</h3>
-                        <p class="text-sm text-subtle">What I'm doing next.</p>
-                        <textarea id="overview-today" class="auto-save" data-field="today" rows="4"></textarea>
-                    </div>
-                </section>
-
-                <!-- 2. Reading Library Section -->
-                <section id="readings" data-section-panel="readings" class="view-section hidden">
-                    <div class="section-header flex-between">
-                        <h2>Reading Library</h2>
-                        <button class="btn-primary" id="btn-new-reading">+ Add Reading</button>
-                    </div>
-
-                    <div class="toolbar">
-                        <input type="text" id="search-readings" class="search-input"
-                            placeholder="Search title, author, tags...">
-                        <select id="filter-readings-status" class="filter-select">
-                            <option value="All">All Status</option>
-                            <option value="Not started">Not started</option>
-                            <option value="In progress">In progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                        <select id="sort-readings" class="filter-select">
-                            <option value="newest">Newest First</option>
-                            <option value="title">Title A-Z</option>
-                            <option value="status">Status</option>
-                        </select>
-                    </div>
-
-                    <div id="readings-container" class="items-grid empty-state-container">
-                        <!-- Populated by JS -->
-                    </div>
-                </section>
-
-                <!-- 3. Weekly Plan Section -->
-                <section id="weekly" data-section-panel="weekly" class="view-section hidden">
-                    <div class="section-header">
-                        <h2>Weekly Plan</h2>
-                        <p class="text-subtle">Milestones from Week 5 to Week 11</p>
-                    </div>
-                    <div id="weekly-container" class="weekly-grid">
-                        <!-- Populated by JS -->
-                    </div>
-                </section>
-
-                <!-- 4. Prompt Log Section -->
-                <section id="prompts" data-section-panel="prompts" class="view-section hidden">
-                    <div class="section-header flex-between">
-                        <h2>Prompt Log</h2>
-                        <button class="btn-primary" id="btn-new-prompt">+ Add Prompt</button>
-                    </div>
-
-                    <div class="toolbar">
-                        <input type="text" id="search-prompts" class="search-input" placeholder="Search prompts...">
-                        <!-- Optional tag filter can go here -->
-                    </div>
-
-                    <div id="prompts-container" class="items-list empty-state-container">
-                        <!-- Populated by JS -->
-                    </div>
-                </section>
-
-                <!-- 5. Experiment Log Section -->
-                <section id="experiments" data-section-panel="experiments" class="view-section hidden">
-                    <div class="section-header flex-between">
-                        <h2>Experiment Log</h2>
-                        <button class="btn-primary" id="btn-new-experiment">+ Add Experiment</button>
-                    </div>
-
-                    <div class="toolbar">
-                        <input type="text" id="search-experiments" class="search-input"
-                            placeholder="Search experiments...">
-                        <select id="filter-experiments-status" class="filter-select">
-                            <option value="All">All Status</option>
-                            <option value="Planned">Planned</option>
-                            <option value="Running">Running</option>
-                            <option value="Done">Done</option>
-                        </select>
-                    </div>
-
-                    <div id="experiments-container" class="items-grid empty-state-container">
-                        <!-- Populated by JS -->
-                    </div>
-                </section>
-
-                <!-- 6. Links Section -->
-                <section id="links" data-section-panel="links" class="view-section hidden">
-                    <div class="section-header flex-between">
-                        <h2>Links & Resources</h2>
-                        <button class="btn-primary" id="btn-new-link">+ Add Link</button>
-                    </div>
-                    <div id="links-container" class="links-list">
-                        <!-- Populated by JS -->
-                    </div>
-                </section>
-
-                <!-- 7. Utilities Section -->
-                <section id="settings" data-section-panel="settings" class="view-section hidden">
-                    <div class="section-header">
-                        <h2>Utilities</h2>
-                    </div>
-
-                    <div class="card">
-                        <h3>Data Management</h3>
-                        <p class="text-subtle">Back up or restore your dashboard data.</p>
-
-                        <div class="settings-actions mt-md">
-                            <button id="btn-export" class="btn-secondary">Export Data (JSON)</button>
-
-                            <div class="import-wrapper pt-sm mt-sm">
-                                <label for="import-file" class="btn-secondary" style="cursor: pointer;">Import Dashboard
-                                    JSON backup</label>
-                                <input type="file" id="import-file" accept=".json" style="display: none;">
-                            </div>
-                        </div>
-
-                        <div class="danger-zone mt-lg pt-md" style="border-top: 1px solid var(--border-color);">
-                            <h4 class="text-danger">Danger Zone</h4>
-                            <p class="text-subtle">This action cannot be undone. All local data will be permanently
-                                deleted.</p>
-                            <button id="btn-clear-data" class="btn-danger mt-sm">Clear All Data</button>
-                        </div>
-                    </div>
-                </section>
-
+            <div class="header-actions">
+                <select id="theme-toggle" class="btn text"
+                    style="margin-right: -0.5rem; text-transform:uppercase; font-size: 0.9rem; font-weight: 800;">
+                    <option value="system">System Mode</option>
+                    <option value="light">Light Mode</option>
+                    <option value="dark">Dark Mode</option>
+                </select>
+                <button id="auth-btn" class="icon-btn" title="Unlock Edit Mode" style="margin-right: 1rem;">
+                    <span id="auth-icon" class="material-symbols-rounded">lock</span>
+                </button>
+                <button id="settings-btn" class="icon-btn edit-only" title="Canvas Settings"
+                    style="margin-right: 1rem;">
+                    <span class="material-symbols-rounded">school</span>
+                </button>
+                <button id="add-category-btn" class="btn primary edit-only">
+                    <span class="material-symbols-rounded">create_new_folder</span>
+                    New Category
+                </button>
+                <button id="add-link-btn" class="btn primary edit-only">
+                    <span class="material-symbols-rounded">add_link</span>
+                    New Link
+                </button>
             </div>
+        </header>
+
+        <section id="canvas-section" class="canvas-container hidden">
+            <div class="canvas-header">
+                <h2><span class="material-symbols-rounded">school</span> Upcoming Assignments</h2>
+                <div class="canvas-actions">
+                    <button id="refresh-canvas-btn" class="icon-btn text" title="Refresh">
+                        <span class="material-symbols-rounded">sync</span>
+                    </button>
+                </div>
+            </div>
+            <div id="canvas-assignments" class="canvas-list">
+                <!-- Assignments injected here -->
+            </div>
+            <div id="canvas-error" class="canvas-error hidden"></div>
+        </section>
+
+        <main id="categories-container" class="grid-container">
+            <!-- Categories will be rendered here -->
         </main>
     </div>
 
     <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
 
-    <!-- Modal: Reading -->
-    <div id="modal-reading" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2 id="modal-reading-title">Add Reading</h2>
-            <form id="form-reading">
-                <input type="hidden" id="reading-id">
-                <div class="form-group">
-                    <label>Title *</label>
-                    <input type="text" id="reading-title" required>
-                </div>
-                <div class="form-group">
-                    <label>Author / Source</label>
-                    <input type="text" id="reading-author">
-                </div>
-                <div class="form-group">
-                    <label>Link (URL)</label>
-                    <input type="url" id="reading-link">
-                </div>
-                <div class="form-group">
-                    <label>Tags (comma separated)</label>
-                    <input type="text" id="reading-tags">
-                </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <select id="reading-status">
-                        <option value="Not started">Not started</option>
-                        <option value="In progress">In progress</option>
-                        <option value="Completed">Completed</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Notes</label>
-                    <textarea id="reading-notes" rows="4"></textarea>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary close-modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Save Reading</button>
-                </div>
-            </form>
+    <!-- Link Modal -->
+    <div id="link-modal" class="modal hidden">
+        <h2 id="link-modal-title">Add Link</h2>
+        <form id="link-form">
+            <input type="hidden" id="link-id">
+            <div class="form-group">
+                <label for="link-name">Name</label>
+                <input type="text" id="link-name" autocomplete="off" required placeholder="e.g. GitHub">
+            </div>
+            <div class="form-group">
+                <label for="link-url">URL</label>
+                <input type="url" id="link-url" autocomplete="off" required placeholder="https://github.com">
+            </div>
+            <div class="form-group">
+                <label for="link-desc">Description (Optional)</label>
+                <input type="text" id="link-desc" autocomplete="off" placeholder="e.g. My code repositories">
+            </div>
+            <div class="form-group">
+                <label for="link-category">Category</label>
+                <select id="link-category" required>
+                    <!-- Options populated via JS -->
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn text close-modal-btn">Cancel</button>
+                <button type="submit" class="btn primary">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="category-modal" class="modal hidden">
+        <h2>Add Category</h2>
+        <form id="category-form">
+            <div class="form-group">
+                <label for="category-name">Name</label>
+                <input type="text" id="category-name" autocomplete="off" required placeholder="e.g. Work">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn text close-modal-btn">Cancel</button>
+                <button type="submit" class="btn primary">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="delete-modal" class="modal hidden">
+        <h2>Delete target?</h2>
+        <p id="delete-msg">This action cannot be undone.</p>
+        <div class="modal-actions">
+            <button type="button" class="btn text close-modal-btn">Cancel</button>
+            <button id="confirm-delete-btn" class="btn danger">Delete</button>
         </div>
     </div>
 
-    <!-- Modal: Prompt -->
-    <div id="modal-prompt" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2 id="modal-prompt-title">Add Prompt</h2>
-            <form id="form-prompt">
-                <input type="hidden" id="prompt-id">
-                <div class="form-group">
-                    <label>Model Used</label>
-                    <select id="prompt-model" required>
-                        <option value="ChatGPT">ChatGPT</option>
-                        <option value="Claude">Claude</option>
-                        <option value="Gemini">Gemini</option>
-                        <option value="AntiGravity">AntiGravity</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Tags (comma separated)</label>
-                    <input type="text" id="prompt-tags">
-                </div>
-                <div class="form-group">
-                    <label>Prompt Text *</label>
-                    <textarea id="prompt-text" rows="4" class="font-mono" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Output Summary</label>
-                    <textarea id="prompt-summary" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>What I changed next</label>
-                    <input type="text" id="prompt-next">
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary close-modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Save Prompt</button>
-                </div>
-            </form>
-        </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <h2>Canvas Setup</h2>
+        <form id="settings-form">
+            <div class="form-group">
+                <label for="canvas-domain">Canvas Domain</label>
+                <input type="text" id="canvas-domain" autocomplete="off" placeholder="e.g. canvas.ewu.edu" required>
+                <small style="color: var(--text-secondary); font-size: 0.8rem; display: block; margin-top: 0.4rem;">The
+                    URL where you log into Canvas.</small>
+            </div>
+            <div class="form-group">
+                <label for="canvas-token">Access Token</label>
+                <input type="password" id="canvas-token" autocomplete="off" placeholder="Paste generated token...">
+                <small
+                    style="color: var(--text-secondary); font-size: 0.8rem; display: block; margin-top: 0.4rem;">Generate
+                    this in Canvas: Account > Settings > New Access Token. <br>Leave blank to disable Canvas
+                    integration.</small>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn text close-modal-btn">Cancel</button>
+                <button type="submit" class="btn primary">Save</button>
+            </div>
+        </form>
     </div>
 
-    <!-- Modal: Experiment -->
-    <div id="modal-experiment" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2 id="modal-experiment-title">Add Experiment</h2>
-            <form id="form-experiment">
-                <input type="hidden" id="experiment-id">
-                <div class="form-group">
-                    <label>What I tried *</label>
-                    <textarea id="experiment-tried" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Notes or Screenshot Link</label>
-                    <textarea id="experiment-notes" rows="2"
-                        placeholder="Paste image URL to preview, or write notes"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Outcome</label>
-                    <textarea id="experiment-outcome" rows="2"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Next Step</label>
-                    <input type="text" id="experiment-next">
-                </div>
-                <div class="form-group">
-                    <label>Tags (comma separated)</label>
-                    <input type="text" id="experiment-tags">
-                </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <select id="experiment-status">
-                        <option value="Planned">Planned</option>
-                        <option value="Running">Running</option>
-                        <option value="Done">Done</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary close-modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Save Experiment</button>
-                </div>
-            </form>
-        </div>
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal hidden">
+        <h2>Unlock Dashboard</h2>
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="auth-password">Password</label>
+                <input type="password" id="auth-password" autocomplete="off" required>
+            </div>
+            <div id="auth-error" class="hidden"
+                style="color: var(--danger); font-size: 0.95rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center; border: 2px dashed var(--danger); padding: 0.5rem; border-radius: var(--radius);">
+                Incorrect password.</div>
+            <div class="modal-actions">
+                <button type="button" class="btn text close-modal-btn">Cancel</button>
+                <button type="submit" class="btn primary">Unlock</button>
+            </div>
+        </form>
     </div>
 
-    <!-- Modal: Link -->
-    <div id="modal-link" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2 id="modal-link-title">Add Link</h2>
-            <form id="form-link">
-                <input type="hidden" id="link-id">
-                <div class="form-group">
-                    <label>Title *</label>
-                    <input type="text" id="link-title" required>
-                </div>
-                <div class="form-group">
-                    <label>URL *</label>
-                    <input type="url" id="link-url" required>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-secondary close-modal">Cancel</button>
-                    <button type="submit" class="btn-primary">Save Link</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="toast hidden"></div>
-
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
