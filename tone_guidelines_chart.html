@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tone Guidelines Chart</title>
+    <style>
+        body {
+            background-color: #F8F9FA;
+            color: #27272A;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 60px 20px;
+        }
+
+        .chart-container {
+            background: #FFFFFF;
+            width: 100%;
+            max-width: 900px;
+            padding: 60px 80px;
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+            border: 1px solid #F0F0F2;
+            box-sizing: border-box;
+        }
+
+        .header {
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin: 0;
+            color: #18181B;
+            letter-spacing: -0.3px;
+        }
+
+        .header p {
+            font-size: 15px;
+            color: #71717A;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .chart-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #E4E4E7;
+            margin-bottom: 10px;
+        }
+
+        .column-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* Muted cool tone for supportive */
+        .title-supportive {
+            color: #607D8B;
+        }
+
+        /* Muted warm/taupe tone for stress-inducing */
+        .title-stress {
+            color: #9D8A82;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 24px 0;
+            border-bottom: 1px solid #F4F4F5;
+        }
+
+        .chart-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .cell {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #3F3F46;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        /* Soft accent lines indicating the tone color */
+        .cell.supportive::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 3px;
+            background-color: #B0BEC5;
+            /* Soft cool grey-blue */
+            border-radius: 2px;
+        }
+
+        .cell.stress::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 3px;
+            background-color: #D7CCC8;
+            /* Soft warm sand/taupe */
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chart-container">
+        <div class="header">
+            <h1>Communication & Tone Guidelines</h1>
+            <p>A reference tool for learning design, mapping how communication styles impact the anxious learner.
+                Written from the perspective of the learner.</p>
+        </div>
+
+        <div class="chart">
+            <div class="chart-header">
+                <div class="column-title title-supportive">Supportive Tone</div>
+                <div class="column-title title-stress">Stress-Inducing Tone</div>
+            </div>
+
+            <!-- Row 1: Expectations -->
+            <div class="chart-row">
+                <div class="cell supportive">Tell me exactly what you expect from me.</div>
+                <div class="cell stress">Leave the real expectations vague or implied.</div>
+            </div>
+
+            <!-- Row 2: Language -->
+            <div class="chart-row">
+                <div class="cell supportive">Use neutral, plain language that doesn't judge my ability.</div>
+                <div class="cell stress">Use authoritative language that makes me feel evaluated.</div>
+            </div>
+
+            <!-- Row 3: Instructions -->
+            <div class="chart-row">
+                <div class="cell supportive">Break complex tasks nicely into step-by-step instructions.</div>
+                <div class="cell stress">Hand me dense, overwhelming paragraphs of text.</div>
+            </div>
+
+            <!-- Row 4: Confusion -->
+            <div class="chart-row">
+                <div class="cell supportive">Acknowledge that feeling confused is a normal part of learning.</div>
+                <div class="cell stress">Speak as if I should already know the material.</div>
+            </div>
+
+            <!-- Row 5: Consistency -->
+            <div class="chart-row">
+                <div class="cell supportive">Keep the layout predictable and use consistent phrasing.</div>
+                <div class="cell stress">Change the structure or phrasing unexpectedly.</div>
+            </div>
+
+            <!-- Row 6: Feedback -->
+            <div class="chart-row">
+                <div class="cell supportive">Focus your feedback on my progress and what I understand.</div>
+                <div class="cell stress">Focus mainly on my errors without offering a path forward.</div>
+            </div>
+
+            <!-- Row 7: Urgency -->
+            <div class="chart-row">
+                <div class="cell supportive">Explain the context before giving me an urgent deadline.</div>
+                <div class="cell stress">Create a sense of urgency without explaining why it matters.</div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
