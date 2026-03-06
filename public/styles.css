@@ -640,25 +640,34 @@ select option {
 }
 
 /* Updated Status Colors */
+select.status-not-started,
+select.status-planned,
 .status-not-started,
 .status-planned {
-    color: #a3a3a3;
-    /* muted gray */
-    border-color: rgba(163, 163, 163, 0.5);
+    color: #1a1625;
+    background-color: #d8d8e0;
+    border-color: #b0b0bb;
+    font-weight: 600;
 }
 
+select.status-in-progress,
+select.status-running,
 .status-in-progress,
 .status-running {
-    color: #98c2b8;
-    /* soft teal */
-    border-color: rgba(152, 194, 184, 0.5);
+    color: #0b2b25;
+    background-color: #a8e6cf;
+    border-color: #8cc3af;
+    font-weight: 600;
 }
 
+select.status-completed,
+select.status-done,
 .status-completed,
 .status-done {
-    color: #bfaee3;
-    /* soft lavender */
-    border-color: rgba(191, 174, 227, 0.5);
+    color: #2b1b54;
+    background-color: #d1bdf2;
+    border-color: #b09ece;
+    font-weight: 600;
 }
 
 
