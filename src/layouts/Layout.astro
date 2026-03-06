@@ -11,7 +11,7 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href={import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL + 'favicon.svg' : import.meta.env.BASE_URL + '/favicon.svg'} />
 		<title>{title}</title>
 		
 		<!-- Google Fonts for elegant serif and clean sans-serif -->
@@ -19,7 +19,7 @@ const { title } = Astro.props;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 		
-		<link rel="stylesheet" href="/styles.css">
+		<link rel="stylesheet" href={import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL + 'styles.css' : import.meta.env.BASE_URL + '/styles.css'}>
 
 		<!-- AHA Stack: HTMX -->
 		<script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
