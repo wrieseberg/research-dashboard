@@ -1,16 +1,19 @@
 ---
+const initialWeekly = [
+    { id: 'w5', week: 5, title: 'Week 5', goals: 'Research foundations:\nCognitive Load Theory and Learning Through Structure.\nDraft Design Principles for Calm Learning.', checklist: [], notes: '' },
+    { id: 'w6', week: 6, title: 'Week 6', goals: 'Attention and information overload research.\nIdentify overwhelm triggers and create pacing map.', checklist: [], notes: '' },
+    { id: 'w7', week: 7, title: 'Week 7', goals: 'Emotion and learning research.\nCreate emotional journey map.\nBuild first low-fidelity layout.', checklist: [], notes: '' },
+    { id: 'w8', week: 8, title: 'Week 8', goals: 'Systems thinking and repetition research.\nRefine structure into coherent learning system.', checklist: [], notes: '' },
+    { id: 'w9', week: 9, title: 'Week 9', goals: 'Usability heuristics and ethical design.\nCreate guided breathing/grounding element.\nRecord test media and embed in prototype.', checklist: [], notes: '' },
+    { id: 'w10', week: 10, title: 'Week 10', goals: 'Reflection and reduction.\nReview page for clarity.\nRemove unnecessary elements.\nOrganize Milanote board.', checklist: [], notes: '' },
+    { id: 'w11', week: 11, title: 'Week 11', goals: 'Final polish.\nFinalize submission materials.', checklist: [], notes: '' }
+];
 ---
+<script type="application/json" id="weekly-init-data" set:html={JSON.stringify(initialWeekly)}></script>
+
 <section id="weekly" class="view-section active"
-    x-data="{
-        weeklyData: $persist([
-            { id: 'w5', week: 5, title: 'Week 5', goals: 'Research foundations:\nCognitive Load Theory and Learning Through Structure.\nDraft Design Principles for Calm Learning.', checklist: [], notes: '' },
-            { id: 'w6', week: 6, title: 'Week 6', goals: 'Attention and information overload research.\nIdentify overwhelm triggers and create pacing map.', checklist: [], notes: '' },
-            { id: 'w7', week: 7, title: 'Week 7', goals: 'Emotion and learning research.\nCreate emotional journey map.\nBuild first low-fidelity layout.', checklist: [], notes: '' },
-            { id: 'w8', week: 8, title: 'Week 8', goals: 'Systems thinking and repetition research.\nRefine structure into coherent learning system.', checklist: [], notes: '' },
-            { id: 'w9', week: 9, title: 'Week 9', goals: 'Usability heuristics and ethical design.\nCreate guided breathing/grounding element.\nRecord test media and embed in prototype.', checklist: [], notes: '' },
-            { id: 'w10', week: 10, title: 'Week 10', goals: 'Reflection and reduction.\nReview page for clarity.\nRemove unnecessary elements.\nOrganize Milanote board.', checklist: [], notes: '' },
-            { id: 'w11', week: 11, title: 'Week 11', goals: 'Final polish.\nFinalize submission materials.', checklist: [], notes: '' }
-        ]).as('lwo_dashboard_weekly'),
+    x-data={`{
+        weeklyData: $persist(JSON.parse(document.getElementById('weekly-init-data').textContent)).as('lwo_dashboard_weekly'),
         
         newTaskInputs: {},
         
@@ -21,7 +24,7 @@
                 this.newTaskInputs[weekId] = '';
             }
         }
-    }">
+    }`}>
 
     <div class="section-header">
         <h2>Weekly Plan</h2>

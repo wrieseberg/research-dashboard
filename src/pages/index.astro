@@ -59,13 +59,28 @@ const BASE = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
         <!-- Main Content Area -->
         <main class="main-content">
-            <!-- Sticky Header -->
-            <header class="sticky-header">
+            <header class="sticky-header" x-data="{
+                readingsCount: 0,
+                promptsCount: 0,
+                experimentsCount: 0,
+                updateStats() {
+                    const r = JSON.parse(localStorage.getItem('lwo_dashboard_readings') || '[]');
+                    const p = JSON.parse(localStorage.getItem('lwo_dashboard_prompts') || '[]');
+                    const e = JSON.parse(localStorage.getItem('lwo_dashboard_experiments') || '[]');
+                    this.readingsCount = r.length;
+                    this.promptsCount = p.length;
+                    this.experimentsCount = e.length;
+                }
+            }" x-init="updateStats(); window.addEventListener('storage', () => updateStats()); document.body.addEventListener('click', () => setTimeout(updateStats, 100))">
                 <div class="header-titles">
                     <h1>Learning Without Overwhelm</h1>
                     <p class="tagline">Where learning feels manageable. Built with AHA Stack.</p>
                 </div>
-                <!-- Optional stats could go here, managed by global Alpine store if needed -->
+                <div class="header-stats">
+                    <div class="stat"><span x-text="readingsCount"></span> Readings</div>
+                    <div class="stat"><span x-text="promptsCount"></span> Prompts</div>
+                    <div class="stat"><span x-text="experimentsCount"></span> Experiments</div>
+                </div>
             </header>
 
             <!-- Sections Container -->

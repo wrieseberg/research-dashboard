@@ -88,7 +88,7 @@
                 </div>
                 
                 <div class="mb-sm text-secondary"><strong>Prompt Input:</strong></div>
-                <div class="prompt-text-block font-mono text-secondary mb-md" x-html="p.text.replace(/\n/g, '<br>')"></div>
+                <div class="prompt-text-block font-mono text-secondary mb-md" style="white-space: pre-wrap;" x-text="p.text"></div>
                 
                 <template x-if="p.summary">
                     <div class="mb-sm text-secondary"><strong>Output Summary:</strong><br> <span x-text="p.summary"></span></div>
